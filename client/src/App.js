@@ -15,6 +15,7 @@ function App() {
   const [searchInput, setSearchInput ] = useState(""); // value of state
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
+  
   useEffect(() => {
     //API Access Token
     var auth = {
@@ -80,7 +81,8 @@ function App() {
       <Container>
         <Row className="mx-2 row row-cols-4">
           {albums.map( (album, i) => {
-            return (
+            
+            return (    
               <Card>
                 <Card.Img src={album.images[0].url} />
                 <Card.Body>
