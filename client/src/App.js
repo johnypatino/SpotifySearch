@@ -10,9 +10,11 @@ import { useState, useEffect} from 'react';
 const CLIENT_ID = "76d56a255c6d434a9e743544c4d2f288";
 const CLIENT_SECRET = "5d4ba56d3cbe44dc9586cf184291122d";
 
+
 function App() {
   const [searchInput, setSearchInput ] = useState(""); // value of state
   const [accessToken, setAccessToken] = useState("");
+  const [albums, setAlbums] = useState([]);
   useEffect(() => {
     //API Access Token
     var auth = {
@@ -43,13 +45,17 @@ function App() {
   .then(response => response.json())
   .then(data => {return data.artists.items[0].id})
   // Get request with Artist ID grab all albums from artist
-  var albums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=15', artistParams)
+  var artistAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=50', artistParams)
   .then(response => response.json())
   .then(data => {
+
     console.log(data)
+    setAlbums(data.items)
   })
   // Display albums
+  
   }
+  console.log(albums)
   return (
     <div className="App">
     {/*----------------- Search Bar ----------------*/}
@@ -73,14 +79,17 @@ function App() {
       {/*----------------- Album Covers ----------------*/}
       <Container>
         <Row className="mx-2 row row-cols-4">
-          <Card>
-            <Card.Img src='' />
-            <Card.Body>
-              <Card.Title>Album Name</Card.Title>
-            </Card.Body>
-         </Card>
+          {albums.map( (album, i) => {
+            return (
+              <Card>
+                <Card.Img src={album.images[0].url} />
+                <Card.Body>
+                  <Card.Title>{album.name}</Card.Title>
+                </Card.Body>
+              </Card>
+            )
+          })}   
         </Row>
-        
       </Container>
     </div>
   );
