@@ -4,11 +4,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, InputGroup, FormControl, Button, Row, Card, CardBody} from 'react-bootstrap';
 import { useState, useEffect} from 'react';
 
+
+ /* Spotify API Documentation:  https://developer.spotify.com/documentation/web-api */
+
 const CLIENT_ID = "76d56a255c6d434a9e743544c4d2f288";
 const CLIENT_SECRET = "5d4ba56d3cbe44dc9586cf184291122d";
 
 function App() {
   const [searchInput, setSearchInput ] = useState(""); // value of state
+  const [accessToken, setAccessToken] = useState("");
+  useEffect(() => {
+    //API Access Token
+    var auth = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+    }
+    fetch('https://accounts.spotify.com/api/token', auth)
+    .then(result => result.json())
+    .then(data => setAccessToken(data.access_token))
+  }, [])
+
+  // Search 
+  async function search() {
+    console.log("Search for " + searchInput);
+  }
  
   return (
     <div className="App">
@@ -20,12 +42,12 @@ function App() {
           type="input"
           onKeyDown={event => {
             if (event.key == "Enter") {
-              console.log("Pressed Enter")
+              search()
             }
           }}
           onChange={event => setSearchInput(event.target.value)}
           />
-          <Button onClick={() => {console.log("Clicked button")}}>
+          <Button onClick={search}>
           Search
           </Button> 
         </InputGroup>
