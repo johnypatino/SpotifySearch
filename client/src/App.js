@@ -57,12 +57,15 @@ function App() {
   }
   return (
     <div className="App">
+
+    {/*--------------- Header -------------------- */}
       <Container>
         <div className='header' >
           <h1>Spotify Album Search</h1>
           <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/336px-Spotify_logo_without_text.svg.png?20160123212544' width={50} height={50}></img>
         </div>
       </Container>
+
     {/*----------------- Search Bar ----------------*/}
       <Container>
         <InputGroup className="mb-3" size="lg">
@@ -94,6 +97,7 @@ function App() {
           </Button> 
         </InputGroup>
       </Container>
+
       {/*----------------- Album Covers ----------------*/}
       <Container>
         <Row className="mx-2 row row-cols-4">
@@ -108,6 +112,13 @@ function App() {
             )
           })}   
         </Row>
+      </Container>
+
+      <Container>
+      {/*------------------ Footer ------------------------*/}
+        <div className='footer'>
+          <h6>Jonathan Patino</h6>
+        </div>
       </Container>
     </div>
   );
