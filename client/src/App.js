@@ -30,8 +30,22 @@ function App() {
   // Search 
   async function search() {
     console.log("Search for " + searchInput);
+  
+  // Get request using search to get the Artist ID
+  var artistParams = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    }
   }
+  var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', artistParams)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  // Get request with Artist ID grab all albums from artist
  
+  // Display those albums to the user
+  }
   return (
     <div className="App">
     {/*----------------- Search Bar ----------------*/}
