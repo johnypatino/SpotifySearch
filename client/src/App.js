@@ -30,33 +30,31 @@ function App() {
     .then(data => setAccessToken(data.access_token))
   }, [])
 
-  // Search 
+  /*---------------------Search Function-------------------*/
   async function search() {
     console.log("Search for " + searchInput);
   
-  // Get request using search to get the Artist ID
-  var artistParams = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + accessToken
+    // Get Request using search to grab Artist ID
+    var artistParams = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + accessToken
+      }
     }
-  }
-  var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', artistParams)
-  .then(response => response.json())
-  .then(data => {return data.artists.items[0].id})
-  // Get request with Artist ID grab all albums from artist
-  var artistAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=50', artistParams)
-  .then(response => response.json())
-  .then(data => {
+    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', artistParams)
+    .then(response => response.json())
+    .then(data => {return data.artists.items[0].id})
 
-    console.log(data)
-    setAlbums(data.items)
-  })
-  // Display albums
-  
+    // Get request with Artist ID to grab all albums from artist
+    var artistAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=50', artistParams)
+    .then(response => response.json())
+    .then(data => {
+
+      console.log(data)
+      setAlbums(data.items)
+    })
   }
-  console.log(albums)
   return (
     <div className="App">
     {/*----------------- Search Bar ----------------*/}
@@ -81,7 +79,6 @@ function App() {
       <Container>
         <Row className="mx-2 row row-cols-4">
           {albums.map( (album, i) => {
-            
             return (    
               <Card>
                 <Card.Img src={album.images[0].url} />
