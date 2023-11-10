@@ -65,12 +65,25 @@ function App() {
           type="input"
           onKeyDown={event => {
             if (event.key == "Enter") {
-              search()
+              if (searchInput == "") {
+                return;
+              }
+              else {
+                search()
+              }
+              
             }
           }}
           onChange={event => setSearchInput(event.target.value)}
           />
-          <Button onClick={search}>
+          <Button onClick={event => {
+            if (searchInput == "") {
+              return;
+            }
+            else {
+              search()
+            }
+          }}>
           Search
           </Button> 
         </InputGroup>
