@@ -41,10 +41,14 @@ function App() {
   }
   var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', artistParams)
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {return data.artists.items[0].id})
   // Get request with Artist ID grab all albums from artist
- 
-  // Display those albums to the user
+  var albums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=15', artistParams)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+  })
+  // Display albums
   }
   return (
     <div className="App">
