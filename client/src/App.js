@@ -117,7 +117,7 @@ function App() {
       <Container>
       {/*------------------ Footer ------------------------*/}
         <div className='footer'>
-          <h6>Jonathan Patino</h6>
+          <h6>@Jonathan Patino</h6>
         </div>
       </Container>
     </div>
